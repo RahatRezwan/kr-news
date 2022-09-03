@@ -1,1 +1,17 @@
+/* google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap");
 
+/* Common Styles */
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #0d1117;
+}
+
+/* Nav bar Section */
+nav .navbar-brand {
+    font-size: 1.5em;
+    font-weight: 800;
+}
+nav .logo {
+    color: #00adee;
+}
