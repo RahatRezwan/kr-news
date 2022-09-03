@@ -42,6 +42,7 @@ const displayAllNews = (allNews) => {
         return b.total_view - a.total_view;
     });
 
+    //Display news inside newsDiv
     let newsDiv = document.getElementById("news-container");
     newsDiv.innerHTML = "";
     allNews.forEach((news) => {
@@ -50,11 +51,13 @@ const displayAllNews = (allNews) => {
         card.classList.add("card", "mb-3", "bg-dark");
         card.innerHTML = `
         <div class="row align-items-center">
-            <div class="col-3 text-center">
-                <img src="${news.thumbnail_url}" class="w-100 rounded-start m-3" alt="" />
+            <div class="col-12 col-lg-3 text-center p-0 m-0">
+                <img src="${
+                    news.thumbnail_url
+                }" class="img-fluid rounded-start m-4 me-xl-2" alt="" />
             </div>
-            <div class="col-9">
-                <div class="card-body text-white me-5">
+            <div class="col-12 col-lg-9 p-0 m-0">
+                <div class="card-body text-white m-2 ps-xl-0 m-xl-0 me-lg-5">
                     <!-- card detials seciton -->
                     <div>
                         <h4 class="card-title">${news.title}</h4>
@@ -63,7 +66,7 @@ const displayAllNews = (allNews) => {
                         </p>
                     </div>
                     <!-- Author and rating section -->
-                    <div class="d-flex justify-content-between align-items-center mt-4 text-white pe-5">
+                    <div class="d-flex justify-content-between align-items-center mt-4 text-white p-0 pe-lg-5 flex-wrap gap-5">
                         <div id="author-info" class="d-flex align-items-center gap-3">
                             <img src="${
                                 news.author.img
