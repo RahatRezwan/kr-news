@@ -16,32 +16,32 @@ const displayCategories = (categories) => {
     categories.forEach((category) => {
         const a = document.createElement("a");
         a.innerHTML = `
-        <li class="category-item" onclick="loadNews('${category.category_id}')">${category.category_name}</li>
+        <li class="category-item" onclick="loadNews('${category.category_id}', '${category.category_name}')">${category.category_name}</li>
         `;
         ul.appendChild(a);
     });
 };
 
 //Load news data when a category is clicked
-const loadNews = (newsId) => {
+const loadNews = (newsId, categoryName) => {
     loadingSpinner(true);
-    loadNewsData(newsId, true);
+    loadNewsData(newsId, true, categoryName);
 };
 
 //Load news data when a category is clicked
-const loadNewsData = async (id, newsCount) => {
+const loadNewsData = async (id, newsCount, categoryName) => {
     try {
         const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
         const res = await fetch(url);
         const data = await res.json();
-        displayAllNews(data.data, newsCount);
+        displayAllNews(data.data, newsCount, categoryName);
     } catch (error) {
         console.log(error);
     }
 };
 
 //display all news in the main body
-const displayAllNews = (allNews, isNewsCount) => {
+const displayAllNews = (allNews, isNewsCount, categoryName) => {
     if (isNewsCount) {
         let totalNews = allNews.length;
         if (totalNews === 0) {
@@ -50,7 +50,7 @@ const displayAllNews = (allNews, isNewsCount) => {
         const countNewsContainer = document.getElementById("count-news-container");
         countNewsContainer.classList.remove("d-none");
         const countNewsText = document.getElementById("count-news");
-        countNewsText.innerText = `${totalNews} news found`;
+        countNewsText.innerText = `${totalNews} news found for category ${categoryName}`;
     }
     //Sorting News By Total Views
     allNews.sort((a, b) => {
@@ -202,6 +202,7 @@ const displayNewsDetails = (newsDetails) => {
                     </div>
                 </div>
             </div>
+            <p class="text-muted mb-4">Published: ${newsDetails.author.published_date}</p>
             <p class="modal-description text-light">${newsDetails.details}</p>
         </div>
     </div>
