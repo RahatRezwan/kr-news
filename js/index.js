@@ -42,8 +42,64 @@ const displayAllNews = (allNews) => {
         return b.total_view - a.total_view;
     });
 
+    let newsDiv = document.getElementById("news-container");
+    newsDiv.innerHTML = "";
     allNews.forEach((news) => {
         console.log(news);
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3", "bg-dark");
+        card.innerHTML = `
+        <div class="row align-items-center">
+            <div class="col-3 text-center">
+                <img src="${news.thumbnail_url}" class="w-100 rounded-start m-3" alt="" />
+            </div>
+            <div class="col-9">
+                <div class="card-body text-white me-5">
+                    <!-- card detials seciton -->
+                    <div>
+                        <h4 class="card-title">${news.title}</h4>
+                        <p class="card-text text-muted">
+                            ${news.details}
+                        </p>
+                    </div>
+                    <!-- Author and rating section -->
+                    <div class="d-flex justify-content-between align-items-center mt-4 text-white pe-5">
+                        <div id="author-info" class="d-flex align-items-center gap-3">
+                            <img src="${
+                                news.author.img
+                            }" width="50px" alt="" id="author-img" style="border-radius:100%" />
+                            <p id="author-name" class="m-0 p-0">${
+                                news.author.name === "system" ||
+                                news.author.name === null ||
+                                news.author.name === ""
+                                    ? "No author found"
+                                    : news.author.name
+                            }</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="far fa-eye"></i>
+                            <p class="p-0 m-0">${
+                                news.total_view === null || news.total_view === 0
+                                    ? "No views found"
+                                    : news.total_view
+                            }</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        newsDiv.appendChild(card);
     });
 };
 loadCategories();
