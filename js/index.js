@@ -36,6 +36,12 @@ const displayAllNews = (allNews) => {
     countNewsContainer.classList.remove("d-none");
     const countNewsText = document.getElementById("count-news");
     countNewsText.innerText = `${totalNews} news found`;
+
+    //Sorting News By Total Views
+    allNews.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
+
     allNews.forEach((news) => {
         console.log(news);
     });
