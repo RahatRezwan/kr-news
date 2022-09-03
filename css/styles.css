@@ -49,3 +49,13 @@ ul li:active {
     padding: 4px;
     border-radius: 5px;
 }
+
+/* modal section */
+.modal-dialog p {
+    margin: 0;
+}
+.modal-title {
+    font-size: 2em;
+    color: #00adee;
+    font-weight: 700;
+}

@@ -1,10 +1,13 @@
 //fetch the categories
 const loadCategories = async () => {
-    const url = "https://openapi.programming-hero.com/api/news/categories";
-    const res = await fetch(url);
-    const data = await res.json();
-    displayCategories(data.data.news_category);
-    console.log(data.data);
+    try {
+        const url = "https://openapi.programming-hero.com/api/news/categories";
+        const res = await fetch(url);
+        const data = await res.json();
+        displayCategories(data.data.news_category);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 //display categories in the header section
@@ -27,15 +30,19 @@ const loadNews = (newsId) => {
 
 //Load news data when a category is clicked
 const loadNewsData = async (id, newsCount) => {
-    const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayAllNews(data.data, newsCount);
+    try {
+        const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        displayAllNews(data.data, newsCount);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 //display all news in the main body
-const displayAllNews = (allNews, isCount) => {
-    if (isCount) {
+const displayAllNews = (allNews, isNewsCount) => {
+    if (isNewsCount) {
         let totalNews = allNews.length;
         if (totalNews === 0) {
             totalNews = "No news";
@@ -57,7 +64,10 @@ const displayAllNews = (allNews, isCount) => {
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "bg-dark");
         card.innerHTML = `
-        <div class="row align-items-center" onclick="loadNewsDetails('${news._id}')">
+        <div class="row align-items-center" onclick="loadNewsDetails('${
+            news._id
+        }')" data-bs-toggle="modal"
+        data-bs-target="#newsDetails">
             <div class="col-12 col-lg-3 text-center p-0 m-0">
                 <img src="${news.thumbnail_url}" class="img-fluid rounded-start m-4" alt="" />
             </div>
@@ -125,10 +135,87 @@ const loadingSpinner = (isLoading) => {
 
 //load single news details on click
 const loadNewsDetails = async (news_id) => {
-    url = `https://openapi.programming-hero.com/api/news/${news_id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    console.log(data.data[0]);
+    try {
+        url = `https://openapi.programming-hero.com/api/news/${news_id}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        displayNewsDetails(data.data[0]);
+    } catch (error) {
+        console.log(error);
+    }
 };
+
+//Display News Details in a Modal
+const displayNewsDetails = (newsDetails) => {
+    const modalContent = document.getElementById("modal-content");
+    console.log(newsDetails);
+    modalContent.textContent = "";
+    modalContent.innerHTML = `
+    <div class="text-end p-3">
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+        ></button>
+    </div>
+    <div class="modal-body text-white p-4">
+        <!-- news cover -->
+        <div class="news-cover text-center">
+            <img src="${newsDetails.image_url}" alt="" class="img-fluid"/>
+        </div>
+        <!-- News description -->
+        <div class="mt-3">
+            <h3 class="modal-title">${newsDetails.title}</h3>
+            <div class="d-flex gap-5 align-items-center mt-3 mb-4">
+                <div class="d-flex gap-2 align-items-center">
+                    <img
+                        src="${newsDetails.author.img}"
+                        alt=""
+                        style="border-radius: 100%; width: 30px"
+                        class="m-0 p-0"
+                    />
+                    <p>${
+                        newsDetails.author.name === "system" ||
+                        newsDetails.author.name === null ||
+                        newsDetails.author.name === ""
+                            ? "No author found"
+                            : newsDetails.author.name
+                    }</p>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    <i class="far fa-eye"></i>
+                    <p>${
+                        newsDetails.total_view === null || newsDetails.total_view === 0
+                            ? "No views found"
+                            : newsDetails.total_view
+                    }</p>
+                </div>
+                <div class="d-flex gap-2 text-warning">
+                    <p>${newsDetails.rating.number}</p>
+                    <div>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="modal-description text-light">${newsDetails.details}</p>
+        </div>
+    </div>
+    <div class="text-center p-3">
+        <button
+            type="button"
+            class="btn btn-secondary modal-btn"
+            data-bs-dismiss="modal"
+        >
+            Close
+        </button>
+    </div>
+    `;
+};
+
 loadCategories();
 loadNewsData("08", false);
