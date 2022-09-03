@@ -7,6 +7,16 @@ body {
     background-color: #0d1117;
 }
 
+/* text-cut after 3 lines */
+.text-elipses {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
 /* Nav bar Section */
 nav .navbar-brand {
     font-size: 1.5em;

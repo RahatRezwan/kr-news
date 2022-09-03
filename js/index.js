@@ -52,16 +52,14 @@ const displayAllNews = (allNews) => {
         card.innerHTML = `
         <div class="row align-items-center">
             <div class="col-12 col-lg-3 text-center p-0 m-0">
-                <img src="${
-                    news.thumbnail_url
-                }" class="img-fluid rounded-start m-4 me-xl-2" alt="" />
+                <img src="${news.thumbnail_url}" class="img-fluid rounded-start m-4" alt="" />
             </div>
             <div class="col-12 col-lg-9 p-0 m-0">
-                <div class="card-body text-white m-2 ps-xl-0 m-xl-0 me-lg-5">
+                <div class="card-body text-white m-2 ps-xl-0 ms-xl-0 me-lg-5">
                     <!-- card detials seciton -->
                     <div>
                         <h4 class="card-title">${news.title}</h4>
-                        <p class="card-text text-muted">
+                        <p class="card-text text-muted text-elipses">
                             ${news.details}
                         </p>
                     </div>
