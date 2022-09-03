@@ -15,3 +15,27 @@ nav .navbar-brand {
 nav .logo {
     color: #00adee;
 }
+
+/* Categories Section */
+ul {
+    list-style-type: none;
+    flex-wrap: wrap;
+}
+ul a {
+    text-decoration: none;
+}
+ul li {
+    color: #5f5f5f;
+    font-size: 1em;
+    font-weight: 600;
+}
+ul li:hover {
+    color: #00adee;
+}
+
+ul li:active {
+    background-color: #464646;
+    color: #00adee;
+    padding: 4px;
+    border-radius: 5px;
+}
