@@ -18,8 +18,14 @@ const displayCategories = (categories) => {
     });
 };
 
-//Load news when a category is clicked
-const loadNews = async (id) => {
+//Load news data when a category is clicked
+const loadNews = (newsId) => {
+    loadingSpinner(true);
+    loadNewsData(newsId);
+};
+
+//Load news data when a category is clicked
+const loadNewsData = async (id) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -99,8 +105,20 @@ const displayAllNews = (allNews) => {
             </div>
         </div>
         `;
+
         newsDiv.appendChild(card);
     });
+    loadingSpinner(false);
+};
+
+//Loading spinner function
+const loadingSpinner = (isLoading) => {
+    const spinner = document.getElementById("spinner");
+    if (isLoading) {
+        spinner.classList.remove("d-none");
+    } else {
+        spinner.classList.add("d-none");
+    }
 };
 
 //load single news details on click
