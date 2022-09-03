@@ -46,11 +46,10 @@ const displayAllNews = (allNews) => {
     let newsDiv = document.getElementById("news-container");
     newsDiv.innerHTML = "";
     allNews.forEach((news) => {
-        console.log(news);
         const card = document.createElement("div");
         card.classList.add("card", "mb-3", "bg-dark");
         card.innerHTML = `
-        <div class="row align-items-center">
+        <div class="row align-items-center" onclick="loadNewsDetails('${news._id}')">
             <div class="col-12 col-lg-3 text-center p-0 m-0">
                 <img src="${news.thumbnail_url}" class="img-fluid rounded-start m-4" alt="" />
             </div>
@@ -102,5 +101,13 @@ const displayAllNews = (allNews) => {
         `;
         newsDiv.appendChild(card);
     });
+};
+
+//load single news details on click
+const loadNewsDetails = async (news_id) => {
+    url = `https://openapi.programming-hero.com/api/news/${news_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data[0]);
 };
 loadCategories();
