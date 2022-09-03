@@ -4,6 +4,7 @@ const loadCategories = async () => {
     const res = await fetch(url);
     const data = await res.json();
     displayCategories(data.data.news_category);
+    console.log(data.data);
 };
 
 //display categories in the header section
@@ -21,28 +22,29 @@ const displayCategories = (categories) => {
 //Load news data when a category is clicked
 const loadNews = (newsId) => {
     loadingSpinner(true);
-    loadNewsData(newsId);
+    loadNewsData(newsId, true);
 };
 
 //Load news data when a category is clicked
-const loadNewsData = async (id) => {
+const loadNewsData = async (id, newsCount) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayAllNews(data.data);
+    displayAllNews(data.data, newsCount);
 };
 
 //display all news in the main body
-const displayAllNews = (allNews) => {
-    let totalNews = allNews.length;
-    if (totalNews === 0) {
-        totalNews = "No news";
+const displayAllNews = (allNews, isCount) => {
+    if (isCount) {
+        let totalNews = allNews.length;
+        if (totalNews === 0) {
+            totalNews = "No news";
+        }
+        const countNewsContainer = document.getElementById("count-news-container");
+        countNewsContainer.classList.remove("d-none");
+        const countNewsText = document.getElementById("count-news");
+        countNewsText.innerText = `${totalNews} news found`;
     }
-    const countNewsContainer = document.getElementById("count-news-container");
-    countNewsContainer.classList.remove("d-none");
-    const countNewsText = document.getElementById("count-news");
-    countNewsText.innerText = `${totalNews} news found`;
-
     //Sorting News By Total Views
     allNews.sort((a, b) => {
         return b.total_view - a.total_view;
@@ -129,3 +131,4 @@ const loadNewsDetails = async (news_id) => {
     console.log(data.data[0]);
 };
 loadCategories();
+loadNewsData("08", false);
