@@ -62,7 +62,7 @@
 
             <!-- Categories Section -->
             <section class="container-xxl">
-                <div id="categories-container" class="my-4">
+                <div id="categories-container" class="my-5">
                     <ul id="categories-list" class="d-flex justify-content-evenly gap-4 m-0 p-0">
                         <a href="index.html"><li class="category-item">Home</li></a>
                     </ul>
@@ -77,6 +77,24 @@
 
         <!-- Main Section -->
         <main class="container-xxl">
+            <!-- Sort By Section -->
+            <section class="my-5 row align-items-center justify-content-between">
+                <div class="col-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <p class="text-light mb-0">Sort By:</p>
+                        <select class="bg-dark text-color" name="Sort" id="sort" form="">
+                            <option value="Default">Default</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                        <button class="btn text-color fw-semibold btn-sm">Today's Pick</button>
+                        <button class="btn text-color fw-semibold btn-sm">Trending</button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Spinner Section -->
             <div class="d-flex justify-content-center p-5 m-5 d-none" id="spinner">
                 <div class="spinner-border text-white" role="status"></div>

@@ -167,7 +167,7 @@ const displayNewsDetails = (newsDetails) => {
         <!-- News description -->
         <div class="mt-3">
             <h3 class="modal-title">${newsDetails.title}</h3>
-            <div class="d-flex gap-5 align-items-center mt-3 mb-4">
+            <div class="d-flex gap-5 flex-wrap align-items-center mt-3 mb-4">
                 <div class="d-flex gap-2 align-items-center">
                     <img
                         src="${newsDetails.author.img}"
@@ -208,7 +208,7 @@ const displayNewsDetails = (newsDetails) => {
     <div class="text-center p-3">
         <button
             type="button"
-            class="btn btn-secondary modal-btn"
+            class="btn text-color fw-semibold modal-btn"
             data-bs-dismiss="modal"
         >
             Close
